@@ -1,20 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package expraticopoo;
 
-/**
- *
- * @author danie
- */
 public class ExPraticoPOO {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Pessoa daniel = new Pessoa("Daniel", 23, "M");
+        Livro l1 = new Livro("CARTAS PARA JULIETA","SEI LA",80,22,daniel);
+        System.out.println(l1.detalhes());
+        l1.abrir();
+        l1.folhear();
+        System.out.println(l1.detalhes());
+        System.out.println("--------------");
+        l1.fechar();
+        l1.voltarPag();
+        System.out.println(l1.detalhes());
     }
     
 }

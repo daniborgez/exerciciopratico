@@ -1,7 +1,9 @@
 
 package expraticopoo;
 
-public class Livro {
+import java.util.Random;
+
+public class Livro implements Publicacao {
     private String titulo;
     private String autor;
     private int totPagina;
@@ -10,16 +12,18 @@ public class Livro {
     private Pessoa leitor; 
     
     //metodo personalizado
-    public void detalhes(){
 
+    public String detalhes() {
+        return "Livro{" + "titulo=" + titulo + ", autor=" + autor + ", totPagina=" + totPagina + ", pagAtual=" + 
+        pagAtual + ", aberto=" + aberto + ", leitor=" + leitor + '}';
     }
-    //meotodos especiais
 
-    public Livro(String titulo, String autor, int pagAtual, boolean aberto, Pessoa leitor) {
+    //meotodos especiais
+    public Livro(String titulo, String autor,int totPagina ,int pagAtual,Pessoa leitor) {
         this.titulo = titulo;
         this.autor = autor;
+        this.totPagina = totPagina;
         this.pagAtual = pagAtual;
-        this.aberto = aberto;
         this.leitor = leitor;
     }
 
@@ -70,6 +74,42 @@ public class Livro {
     public void setLeitor(Pessoa leitor) {
         this.leitor = leitor;
     }
+    //metodos abstratos
+    @Override
+    public void abrir() {
+        this.setAberto(true);
+    }
+
+    @Override
+    public void fechar() {
+        this.setAberto(false);
+    }
+
+    @Override
+    public void folhear() {
+      Random aleatorio = new Random();
+      this.setPagAtual(aleatorio.nextInt(this.totPagina));
+    }
+
+    @Override
+    public void avancarPag() {
+        if(aberto){
+        this.setPagAtual(pagAtual + 1);
+        }else{
+         System.out.println("ERRO! LIVRO FECHADO");
+        }
+    }
+
+    @Override
+    public void voltarPag() {
+        if(aberto){
+            this.setPagAtual(pagAtual - 1);
+        }else{
+              System.out.println("ERRO! LIVRO FECHADO");
+        }
+
+    }
+
     
     
 }
