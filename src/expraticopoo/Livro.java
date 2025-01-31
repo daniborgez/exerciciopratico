@@ -1,8 +1,6 @@
 
 package expraticopoo;
 
-import java.util.Random;
-
 public class Livro implements Publicacao {
     private String titulo;
     private String autor;
@@ -14,16 +12,17 @@ public class Livro implements Publicacao {
     //metodo personalizado
 
     public String detalhes() {
-        return "Livro{" + "titulo=" + titulo + ", autor=" + autor + ", totPagina=" + totPagina + ", pagAtual=" + 
-        pagAtual + ", aberto=" + aberto + ", leitor=" + leitor + '}';
+        return "Livro{" + "titulo=" + titulo + ", autor=" + autor + "\n, totPagina=" + totPagina + ", pagAtual=" + 
+        pagAtual + ", aberto=" + aberto + "\n, leitor=" + leitor.getNome()+", idade do leitor=" + leitor.getIdade()+ '}';
     }
 
     //meotodos especiais
-    public Livro(String titulo, String autor,int totPagina ,int pagAtual,Pessoa leitor) {
+    public Livro(String titulo, String autor,int totPagina ,Pessoa leitor) {
         this.titulo = titulo;
         this.autor = autor;
         this.totPagina = totPagina;
-        this.pagAtual = pagAtual;
+        this.aberto = false;
+        this.pagAtual = 0;
         this.leitor = leitor;
     }
 
@@ -86,26 +85,30 @@ public class Livro implements Publicacao {
     }
 
     @Override
-    public void folhear() {
-      Random aleatorio = new Random();
-      this.setPagAtual(aleatorio.nextInt(this.totPagina));
+    public void folhear(int p) {
+      if(p> this.totPagina || aberto == false){
+            this.pagAtual = 0;
+            System.out.println("Pagina excedida ou livro esta fechado");
+      }else{
+            this.pagAtual = p;
+      }
     }
 
     @Override
     public void avancarPag() {
-        if(aberto){
-        this.setPagAtual(pagAtual + 1);
+        if(aberto == true && pagAtual <= totPagina){
+            this.setPagAtual(pagAtual+1);
         }else{
-         System.out.println("ERRO! LIVRO FECHADO");
+         System.out.println("ERRO! LIVRO FECHADO OU SEM MAIS PAGINAS PARA FOLHEAR (erro avancarpag)");
         }
     }
 
     @Override
     public void voltarPag() {
-        if(aberto){
-            this.setPagAtual(pagAtual - 1);
+        if(aberto == true && pagAtual >0){
+            this.setPagAtual(pagAtual-1);
         }else{
-              System.out.println("ERRO! LIVRO FECHADO");
+              System.out.println("ERRO! LIVRO FECHADO OU SEM MAIS PAGINAS (erro <0)");
         }
 
     }
